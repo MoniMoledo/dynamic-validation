@@ -27,10 +27,10 @@ class CustomerValidator:
         invalid_customers = []
         schema = Schema()
         
-        self.schema.create(validations)
+        schema.create(validations)
 
         for customer in customers:
-            validation_result = self.json_schema.validate(customer)
+            validation_result = schema.validate(customer)
             if(any(validation_result)):
                 invalid_customers.append(validation_result)
         return invalid_customers
