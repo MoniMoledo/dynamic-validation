@@ -1,6 +1,6 @@
 import json
 from jsonschema import Draft4Validator
-from Type import Type
+from type import Type
 
 
 class Schema:
