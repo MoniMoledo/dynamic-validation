@@ -3,22 +3,26 @@ from jsonschema import Draft4Validator
 from Type import Type
 
 
-class JsonSchema:
+class Schema:
 
-    def build_schema(self, properties, required_properties):
-        schema = {
+    schema = {}
+
+    def __init__(self):
+        schema = {}
+
+    def build(self, properties, required_properties):
+        self.schema = {
             "type": "object",
             "properties": properties,
             "required": required_properties,
         }
-        return schema
 
     def get_length_requirements(self, validation, field_name):
         max_len = validation[field_name].get("length", {}).get("max", None)
         min_len = validation[field_name].get("length", {}).get("min", None)
         return max_len, min_len
 
-    def create_schema(self, validations):
+    def create(self, validations):
         required_properties = []
         properties = {}
 
@@ -40,12 +44,12 @@ class JsonSchema:
 
             properties[field_name] = type_object.get_type_requirements()
 
-        return self.build_schema(properties, required_properties)
+        self.build(properties, required_properties)
 
-    def validate(self, schema, instance):
+    def validate(self, instance):
         response = {}
         invalid_fields = []
-        v = Draft4Validator(schema)
+        v = Draft4Validator(self.schema)
         for e in sorted(v.iter_errors(instance), key=str):
             response['id'] = instance["id"]
             for error_field in e.path:

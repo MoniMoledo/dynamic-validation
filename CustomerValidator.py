@@ -1,12 +1,10 @@
 import requests
 import math
 import json
-from JsonSchema import JsonSchema
+from schema_specs import Schema
 
 
 class CustomerValidator:
-
-    json_schema = JsonSchema()
 
     def get_api_number_of_pages(self, url):
         response = requests.get(url=url)
@@ -27,10 +25,12 @@ class CustomerValidator:
 
     def get_customer_validation(self, customers, validations):
         invalid_customers = []
-        schema = self.json_schema.create_schema(validations)
+        schema = Schema()
+        
+        self.schema.create(validations)
 
         for customer in customers:
-            validation_result = self.json_schema.validate(schema, customer)
+            validation_result = self.json_schema.validate(customer)
             if(any(validation_result)):
                 invalid_customers.append(validation_result)
         return invalid_customers
