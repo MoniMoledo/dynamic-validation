@@ -7,9 +7,13 @@ from schema_specs import Schema
 class CustomerValidator:
 
     def get_api_response(self, url, page):
-        params = dict(page=page)
-        response = requests.get(url=url, params=params).json()
-        return response
+        try:
+            params = dict(page=page)
+            response = requests.get(url=url, params=params).json()
+            return response
+        except Exception as e:
+            raise requests.exceptions.RequestException("Error requesting api")
+
 
     def get_api_number_of_pages(self, data):
         number_of_customers = float(data["pagination"]["total"])
