@@ -17,7 +17,7 @@ class CustomerValidation(Resource):
 
     def get(self):
         try:
-            url = 'https://backend--winter-2017.herokuapp.com/customers.json'
+            url = 'https://backend-challenge-winter-2017.herokuapp.com/customers.json'
             invalid_customers = []
             response = {}
 
