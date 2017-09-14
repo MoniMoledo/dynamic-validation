@@ -9,7 +9,7 @@ validator = CustomerValidator()
 
 class CustomerValidation(Resource):
     def get(self):
-        url = ''
+        url = 'https://backend-challenge-winter-2017.herokuapp.com/customers.json'
         invalid_customers = []
         response = {}
 
