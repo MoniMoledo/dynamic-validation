@@ -1,4 +1,3 @@
-import json
 from jsonschema import Draft4Validator
 from type import Type
 
@@ -17,7 +16,8 @@ class Schema:
             "required": required_properties,
         }
 
-    def get_length_requirements(self, validation, field_name):
+    @staticmethod
+    def get_length_requirements(validation, field_name):
         max_len = validation[field_name].get("length", {}).get("max", None)
         min_len = validation[field_name].get("length", {}).get("min", None)
         return max_len, min_len
